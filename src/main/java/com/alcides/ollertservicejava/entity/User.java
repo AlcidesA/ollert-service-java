@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,5 +24,17 @@ public class User {
     private String username;
 
     private String password;
+
+    private String name;
+
+    private String email;
+
+    @ManyToMany
+    @JoinTable(
+        name = "USER_BOARD",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "board_id")
+    )
+    private List<Board> boards;
 
 }
