@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static com.alcides.ollertservicejava.security.SecurityConstants.*;
@@ -36,9 +35,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    user.getUsername(),
-                    user.getPassword(),
-                    new ArrayList<>())
+                    user.getEmail(),
+                    user.getPassword()
+                )
             );
         } catch (IOException e) {
             throw new RuntimeException(e);

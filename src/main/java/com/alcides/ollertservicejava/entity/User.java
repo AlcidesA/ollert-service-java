@@ -21,13 +21,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    private String username;
+    @Column(unique = true)
+    private String email;
 
     private String password;
 
     private String name;
-
-    private String email;
 
     @ManyToMany
     @JoinTable(
