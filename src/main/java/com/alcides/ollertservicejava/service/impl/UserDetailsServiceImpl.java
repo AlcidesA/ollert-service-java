@@ -1,6 +1,7 @@
 package com.alcides.ollertservicejava.service.impl;
 
 import com.alcides.ollertservicejava.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +12,9 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepository applicationUserRepository) {
-        this.userRepository = applicationUserRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
