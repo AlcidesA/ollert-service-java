@@ -28,7 +28,7 @@ public class User {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "USER_BOARD",
         joinColumns = @JoinColumn(name = "user_id"),
