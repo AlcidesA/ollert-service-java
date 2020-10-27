@@ -22,7 +22,6 @@ public class BoardController {
 
     @PostMapping
     public void add(@RequestBody Board board) {
-
         User user = authenticationFacade.getAuthenticatedUser();
         
         user.getBoards().add(board);
