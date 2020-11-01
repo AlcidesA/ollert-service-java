@@ -36,4 +36,8 @@ public class User {
     )
     private List<Board> boards;
 
+    public void removeBoard(Board board){
+        boards.remove(board);
+    }
+
 }

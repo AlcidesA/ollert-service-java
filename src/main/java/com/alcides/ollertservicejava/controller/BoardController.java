@@ -2,13 +2,13 @@ package com.alcides.ollertservicejava.controller;
 
 import com.alcides.ollertservicejava.entity.Board;
 import com.alcides.ollertservicejava.entity.User;
+import com.alcides.ollertservicejava.repository.BoardRepository;
 import com.alcides.ollertservicejava.repository.UserRepository;
 import com.alcides.ollertservicejava.service.impl.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/boards")
@@ -16,6 +16,9 @@ public class BoardController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Autowired
     private AuthenticationFacade authenticationFacade;
@@ -28,5 +31,19 @@ public class BoardController {
 
         userRepository.save(user);
     }
+
+    @DeleteMapping("/{id}")
+    public void remove(@PathVariable Integer id) {
+        Board board = boardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+
+        User user = authenticationFacade.getAuthenticatedUser();
+
+        user.removeBoard(board);
+
+        boardRepository.delete(board);
+        userRepository.save(user);
+    }
+
+
 
 }
