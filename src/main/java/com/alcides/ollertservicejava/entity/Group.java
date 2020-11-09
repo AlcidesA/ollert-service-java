@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Table(name = "\"Group\"")
@@ -23,4 +25,6 @@ public class Group {
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
+    @OneToMany(mappedBy = "group")
+    private List<Card> card;
 }
