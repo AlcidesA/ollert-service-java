@@ -6,8 +6,11 @@ import com.alcides.ollertservicejava.dto.AddGroupDTO;
 import com.alcides.ollertservicejava.entity.Board;
 import com.alcides.ollertservicejava.entity.Group;
 import com.alcides.ollertservicejava.repository.BoardRepository;
+import com.alcides.ollertservicejava.repository.GroupRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,8 @@ public class GroupController {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
 
     @PostMapping
     public void add(@RequestBody AddGroupDTO payload) {
@@ -32,6 +37,11 @@ public class GroupController {
         board.getGroup().add(group);
 
         boardRepository.save(board);
+    }
+
+    @DeleteMapping("{id}")
+    public void remove(@PathVariable("id") Integer id) {
+        groupRepository.deleteById(id);
     }
 
 }
