@@ -1,7 +1,10 @@
 package com.alcides.ollertservicejava.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -13,6 +16,7 @@ import com.alcides.ollertservicejava.repository.GroupRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +31,18 @@ public class CardController {
 
     @Autowired
     private CardRepository cardRepository;
+
+    @GetMapping
+    public List<Card> list(@RequestParam(value = "groupId", required = true) Integer groupId) {
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new EntityNotFoundException());
+        
+        return group.getCards();
+    }
+
+    @GetMapping("/{id}")
+    public Card getCard(@PathVariable("id") Integer id) {
+        return cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+    }
 
     @PostMapping
     public void add(@RequestBody AddCardDTO payload) {

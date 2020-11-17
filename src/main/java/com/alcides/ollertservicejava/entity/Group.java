@@ -26,5 +26,5 @@ public class Group {
     private Board board;
 
     @OneToMany(mappedBy = "group")
-    private List<Card> card;
+    private List<Card> cards;
 }
