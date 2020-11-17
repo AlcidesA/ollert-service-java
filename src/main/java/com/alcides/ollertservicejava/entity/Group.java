@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Table(name = "\"Group\"")
 @Data
 @Entity
@@ -21,10 +23,12 @@ public class Group {
 
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "group")
     private List<Card> cards;
 }

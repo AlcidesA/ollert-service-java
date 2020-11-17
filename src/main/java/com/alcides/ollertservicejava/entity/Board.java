@@ -30,6 +30,6 @@ public class Board {
 
     @JsonIgnore
     @OneToMany(mappedBy = "board", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Group> group;
+    private List<Group> groups;
 
 }
