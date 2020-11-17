@@ -8,6 +8,8 @@ import com.alcides.ollertservicejava.service.impl.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 @RestController
@@ -22,6 +24,18 @@ public class BoardController {
 
     @Autowired
     private AuthenticationFacade authenticationFacade;
+
+    @GetMapping
+    public List<Board> list() {
+        User user = authenticationFacade.getAuthenticatedUser();
+        
+        return user.getBoards();
+    }
+
+    @GetMapping("/{id}")
+    public Board getBoard(@PathVariable("id") Integer id) {
+        return boardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+    }
 
     @PostMapping
     public void add(@RequestBody Board board) {
@@ -43,7 +57,5 @@ public class BoardController {
         boardRepository.delete(board);
         userRepository.save(user);
     }
-
-
 
 }
